@@ -2,7 +2,38 @@ body {
   background-color: #242229;
 }
 
+div {
+  color: #e7defc;
+}
+
+#sprite-border {
+  background-color: #35333d;
+  border-radius: 5px;
+  border: solid 2px whitesmoke;
+  width: 195px;
+}
+
 #pokemon-sprite {
   min-height: 200px;
   min-width: 200px;
+}
+
+#sprite-layer2 {
+  margin-left: -42%;
+}
+
+#pokemon-name {
+  text-align: left;
+  margin-left: 5px;
+  margin-top: 1px;
+}
+
+#pokemon-num {
+  text-align: right;
+  margin-right: 5px;
+  margin-bottom: 1px;
+}
+
+#pokemon-dex {
+  margin-top: 10px;
 }/*# sourceMappingURL=style.css.map */

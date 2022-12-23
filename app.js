@@ -1,60 +1,79 @@
+const shinyChance = 0.05;
 
+var pokeSprite = "";
+var pokeName = "";
+var pokeDex = "";
+var pokeNum = 0;
+var shiny = false;
 
-
-fetch("./pokesprite/data/pokemon.json")
+fetch("https://pokeapi.co/api/v2/pokemon-species/")
     .then((res) => res.json())
-    .then((json) => update_pokemon(json));
+    .then((json) => random_pokemon(json))
     
-function update_pokemon(json) {
-    const pokeImg = document.getElementById("pokemon-sprite");
+function random_pokemon(json) {
     
-    var pokemon = find_pokemon(json);
-    var sprite = find_sprite(pokemon);
     
-    pokeImg.src = sprite;
+    const max = json.count;
+    const min = 0;
+    
+    //get random pokemon from list
+    pokeNum = Math.floor(Math.random() * (max - min + 1) + min);
+    console.log(pokeNum);
+    
+    //get pokemon entry from api
+    fetch("https://pokeapi.co/api/v2/pokemon/" + pokeNum)
+        .then((res) => res.json())
+        .then((json => get_pokemon(json)))
 }
-    
-function find_pokemon(json) {
+
+function get_pokemon(json) {
     console.log(json);
     
-    const min = 1; //dex starts at "001"
+    //get name
+    pokeName = json.name;
     
-    //get max number of pokemon
-    var max = Object.keys(json).length;
-    console.log("max: " + max);
+    //get sprite & shiny check
+    pokeSprite = json.sprites.front_default;
     
-    //get a random id number for a pokemon
-    var dexNum = Math.floor(Math.random() * (max - min + 1) + min);
-    dexNum = dexNum.toString();
-    console.log("dexNum: " + dexNum);
-    
-    //convert to a valid key
-    var dexStr = ("000" + dexNum).substring(dexNum.length);
-    console.log("dexStr: " + dexStr); 
-    
-    var pokeEntry = json[dexStr];
-    console.log(pokeEntry);
-    
-    return pokeEntry;
-}
-
-function find_sprite(pokemon) {
-    var sprite = "";
-    const name = pokemon.slug.eng;
-    
-    var prev = pokemon["gen-8"].forms["$"].is_prev_gen_icon;
-    console.log("uses gen7 sprite: " + prev);
-    
-    if(prev) { //uses gen 7 sprite
-        sprite = "./pokesprite/pokemon-gen7x/regular/" + name + ".png";
+    if(Math.random() < shinyChance) {
+        pokeSprite = json.sprites.front_shiny;
+        shiny = true;
     }
     
-    //doesnt use gen 7 sprite
-    sprite = "./pokesprite/pokemon-gen8/regular/" + name + ".png";
-    
-    console.log("sprite path:" + sprite);
-    return(sprite);
+    fetch("https://pokeapi.co/api/v2/pokemon-species/" + pokeNum)
+    .then((res) => res.json())
+    .then((json => get_pokedex(json)))
 }
 
+function get_pokedex(json) {
+    //get flavor text
+    var entry = json.flavor_text_entries;
+    
+    //go backwards through games and languages until finding an english entry
+    for (var i = entry.length-1; i >= 0; i--) {
+        if (entry[i].language.name == "en") {
+            pokeDex = entry[i].flavor_text;
+            break;
+        }
+    }
+    
+    set_pokemon();
+}
 
-
+function set_pokemon() {
+    const pokeEleImg = document.getElementById("pokemon-sprite");
+    const pokeEleName = document.getElementById("pokemon-name");
+    const pokeEleDex = document.getElementById("pokemon-dex");
+    const pokeEleNum = document.getElementById("pokemon-num");
+    
+    console.log(pokeNum);
+    console.log(pokeName);
+    console.log(pokeSprite);
+    console.log(pokeDex);
+    
+    pokeEleImg.src = pokeSprite;
+    pokeEleName.innerHTML = pokeName;
+    pokeEleDex.innerHTML = pokeDex;
+    pokeEleNum.innerHTML = pokeNum;
+    
+}
