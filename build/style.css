@@ -28,6 +28,7 @@ div {
   border: solid 2px whitesmoke;
   width: 195px;
   height: 255px;
+  box-shadow: 6px 6px 10px black;
 }
 
 #pokemon-sprite {
@@ -38,6 +39,7 @@ div {
 .pokemon-label {
   display: flex;
   margin-top: -2px;
+  text-shadow: 2px 2px 2px black;
 }
 
 #pokemon-name {
@@ -64,6 +66,7 @@ div {
   margin-top: 20px;
   font-style: italic;
   max-width: 250px;
+  text-shadow: 3px 3px 2px black;
 }
 
 #pokemon-star {
@@ -90,6 +93,21 @@ div {
   height: 75px;
   width: 75px;
   text-align: center;
+  box-shadow: 5px 5px 10px black;
+  cursor: pointer;
+}
+
+.shortcut:hover {
+  background-color: #222027;
+  /* Firefox */
+  /* WebKit */
+  /* Opera */
+  /* Standard */
+  transition: all 0.08s ease-in;
+}
+
+#add-shortcut {
+  display: block;
 }
 
 #popup {
@@ -100,4 +118,12 @@ div {
   margin-left: 45vw;
   margin-top: 45vh;
   display: none;
+  box-shadow: 5px 5px 10px black;
+}
+
+#popup-form label {
+  text-shadow: 3px 3px 2px black;
+}
+#welcome {
+  text-shadow: 3px 3px 2px black;
 }/*# sourceMappingURL=style.css.map */

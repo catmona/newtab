@@ -126,49 +126,93 @@ function setWelcomeMessage() {
 // ----------------------
 
 
-function createBookmarks() {
+function createBookmarks() {    
     const container = document.getElementById("bookmarks");
-    const buttons = container.children;
-    // console.log(buttons);
+    while (container.firstChild) {
+        //if there are already buttons, remove them
+        container.removeChild(container.firstChild);
+    }
     
+    //get saved bookmarks from local storage
     var bookmarks = window.localStorage.getItem("bookmarks");
-    if(bookmarks == null) {
-        bookmarks = []
-    }   
+    if(bookmarks == null) bookmarks = []
     else bookmarks = JSON.parse(bookmarks);
     
+    //fill buttons with bookmark info
     var usedButtons = 0;
-    console.log(bookmarks.length)
-    for(var i = 0; i < 6; i++) {
-        buttons[usedButtons].href =  "https://" + bookmarks[i].url;
-        buttons[usedButtons].innerHTML = "https://s2.googleusercontent.com/s2/favicons?domain_url=https://" + bookmarks[i].name;
-        buttons[usedButtons].style.display = "inline";
+    for(var i = 0; i < bookmarks.length; i++) {
+        generateButton(bookmarks[i].url, bookmarks[i].name);
         usedButtons++;
+        
+        if(usedButtons >= 6) return;
     }
     
-    if(usedButtons >= 6) {
-        document.getElementById("add-shortcut").style.display = "none";
-    }
+    //hide shortcut button if there's already max # of bookmarks
+    // if(usedButtons >= 6) {
+    //     return;
+    // }
+    
+    //if there's less than 6 buttons, show a "add new bookmark" button
+    const addButton = document.createElement("div")
+    addButton.onclick = function() { showPopup() }
+    addButton.id = "add-shortcut";
+    addButton.className = "shortcut";
+    addButton.innerHTML = "+";
+    container.appendChild(addButton);
+}
+
+function generateButton(url, name) {
+    const container = document.getElementById("bookmarks");
+    const button = document.createElement("div");
+    container.appendChild(button);
+    
+    //outer button stuff
+    button.onclick = function() { openBookmark(url); }
+    button.innerHTML = name;
+    
+    button.className = "shortcut";
+    button.style.display = "inline";
+    
+    const delButton = document.createElement("button");
+    delButton.innerHTML = "X";
+    delButton.onclick = function(e) { e.stopPropagation(); removeBookmark(button) }
+    button.appendChild(delButton);
+}
+
+function removeBookmark(bookmark) {
+    //get bookmarks from local storage
+    var bookmarks = window.localStorage.getItem("bookmarks");
+    if(bookmarks == null) return; 
+    bookmarks = JSON.parse(bookmarks);
+    
+    var index = Array.from(bookmark.parentElement.children).indexOf(bookmark);
+    bookmarks.splice(index, 1);
+    
+    //add bookmarks back to local storage
+    window.localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+    
+    //regenerate buttons
+    createBookmarks();
 }
 
 function addBookmark(event) {
+    //if nothing was submitted, hide the popup
     if(event.bname.value == "" || event.burl.value == "") {
         document.getElementById("popup").style.display = "none";
         return false;
     }
+    
+    //get bookmarks from local storage
     var bookmarks = window.localStorage.getItem("bookmarks");
-    console.log(bookmarks);
-    if(bookmarks == null) {
-        console.log("bookmarks array is empty");
-        bookmarks = []
-    }   
+    if(bookmarks == null) bookmarks = []
+    
     else bookmarks = JSON.parse(bookmarks);
-    console.log(bookmarks[0]);
     
+    //add bookmark to local storage
     bookmarks.push({name: event.bname.value, url: event.burl.value});
+    window.localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
     
-    window.localStorage.setItem("bookmarks", JSON.stringify(bookmarks))
-    
+    //hide popup and update bookmark buttons
     document.getElementById("popup").style.display = "none";
     createBookmarks();
     return false;
@@ -176,4 +220,10 @@ function addBookmark(event) {
 
 function showPopup() {
     document.getElementById("popup").style.display = "block";
+}
+
+function openBookmark(url) {
+    if(!url.includes("www.")) url = "www." + url;
+    if(!url.includes("https://")) url = "https://" + url;
+    window.open(url, "_self");
 }

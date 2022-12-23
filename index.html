@@ -11,7 +11,7 @@
 	<script src="app.js"></script>
     <div id="popup">
         popup
-        <form id="popup-form" onsubmit="addBookmark(event.target)">
+        <form id="popup-form" onsubmit="return addBookmark(event.target)">
             <label for="bname">bookmark name: </label>
             <input type="text" id="bname" name="bname">
             <br>
@@ -28,29 +28,7 @@
     <div id="bottom">
         <div id="left">
             <!-- left side -->
-            hhh
             <div id="bookmarks">
-                <a class="shortcut">
-                    shortcut 1
-                </a>
-                <a class="shortcut">
-                    shortcut 2
-                </a>
-                <a class="shortcut">
-                    shortcut 3
-                </a>
-                <a class="shortcut">
-                    shortcut 4
-                </a>
-                <a class="shortcut">
-                    shortcut 5
-                </a>
-                <a class="shortcut">
-                    shortcut 6
-                </a>
-                <button id="add-shortcut" onclick=showPopup()>
-                    +
-                </button>
             </div>
         </div> 
         <div id="right">
