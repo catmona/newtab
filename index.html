@@ -9,6 +9,18 @@
   </head>
   <body>
 	<script src="app.js"></script>
+    <div id="popup">
+        popup
+        <form id="popup-form" onsubmit="addBookmark(event.target)">
+            <label for="bname">bookmark name: </label>
+            <input type="text" id="bname" name="bname">
+            <br>
+            <label for="burl">bookmark url: </label>
+            <input type="text" id="burl" name="burl">
+            <br>
+            <input id="submit-button" type="submit" value="submit">
+        </form>
+    </div>
     <div>
         <!-- header -->
         <h1 id="welcome">good night</h1>
@@ -17,6 +29,29 @@
         <div id="left">
             <!-- left side -->
             hhh
+            <div id="bookmarks">
+                <a class="shortcut">
+                    shortcut 1
+                </a>
+                <a class="shortcut">
+                    shortcut 2
+                </a>
+                <a class="shortcut">
+                    shortcut 3
+                </a>
+                <a class="shortcut">
+                    shortcut 4
+                </a>
+                <a class="shortcut">
+                    shortcut 5
+                </a>
+                <a class="shortcut">
+                    shortcut 6
+                </a>
+                <button id="add-shortcut" onclick=showPopup()>
+                    +
+                </button>
+            </div>
         </div> 
         <div id="right">
             <!-- right side -->
@@ -33,6 +68,7 @@
                     </div>
                 </div>
                 <div id="pokemon-dex"></div>
+                <div id="pokemon-percent"></div>
             </div>
         </div>
     </div>

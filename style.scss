@@ -90,6 +90,10 @@ div {
    max-width: 250px; 
 }
 
+#pokemon-percent {
+   
+}
+
 #pokemon-star {
    max-height: 26px;
    max-width: 26px;
@@ -98,3 +102,60 @@ div {
 }
 
 
+// ----------------------
+// bookmarks
+// ----------------------
+
+
+#bookmarks {
+   display: flex;
+   flex-wrap: wrap;
+   margin-left: 20%;
+   margin-top: 100px;
+}
+
+.shortcut {
+   display: none;
+   padding: 50px;
+   margin: 15px;
+   background-color: $surface;
+   color: $text;
+   border-radius: 5px;
+   height: 75px;
+   width: 75px;
+   text-align: center;
+}
+
+#add-shortcut {
+   
+}
+
+
+// ----------------------
+// popup
+// ----------------------
+
+
+#popup {
+   position: absolute;
+   background-color: $surface;
+   padding: 20px;
+   border-radius: 5px;
+   margin-left: 45vw;
+   margin-top: 45vh;
+   display: none;
+}
+
+#popup-form {
+   label {
+      
+   }
+   
+   input {
+      
+   }
+}
+
+#submit-button {
+   
+}

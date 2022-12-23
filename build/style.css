@@ -71,4 +71,33 @@ div {
   max-width: 26px;
   margin-left: 1px;
   filter: invert(27%) sepia(70%) saturate(7419%) hue-rotate(344deg) brightness(95%) contrast(96%);
+}
+
+#bookmarks {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 20%;
+  margin-top: 100px;
+}
+
+.shortcut {
+  display: none;
+  padding: 50px;
+  margin: 15px;
+  background-color: #35333d;
+  color: #e7defc;
+  border-radius: 5px;
+  height: 75px;
+  width: 75px;
+  text-align: center;
+}
+
+#popup {
+  position: absolute;
+  background-color: #35333d;
+  padding: 20px;
+  border-radius: 5px;
+  margin-left: 45vw;
+  margin-top: 45vh;
+  display: none;
 }/*# sourceMappingURL=style.css.map */
