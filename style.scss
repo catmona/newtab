@@ -2,7 +2,6 @@
 // variables
 // ----------------------
 
-
 $bg: #242229;
 $bg2: #222027;
 $surface: #35333d;
@@ -12,57 +11,64 @@ $subtext: #bab3c5;
 
 $accent: #b4befe;
 
-
 // ----------------------
 // base
 // ----------------------
 
-
 body {
-    background-color: $bg;
+   background-color: $bg;
 }
 
 div {
-    color: $text;
+   color: $text;
 }
-
 
 // ----------------------
 // pokemon
 // ----------------------
 
 #pokemon {
-
 }
 
 #sprite-border {
-    background-color: $surface;
-    border-radius: 5px;
-    border: solid 2px whitesmoke;
-    width: 195px;
+   background-color: $surface;
+   border-radius: 5px;
+   border: solid 2px whitesmoke;
+   width: 195px;
+   height: 255px;
 }
 
 #pokemon-sprite {
-    min-height: 200px;
-    min-width: 200px;
+   min-height: 200px;
+   min-width: 200px;
 }
 
-#sprite-layer2 {
-    margin-left: -42%;
+.pokemon-label {
+   display: flex;
 }
 
 #pokemon-name {
-    text-align: left;
-    margin-left: 5px;
-    margin-top: 1px;
+   text-align: left;
+   margin-left: 5px;
+   margin-top: 1px;
 }
 
 #pokemon-num {
-    text-align: right;
-    margin-right: 5px;
-    margin-bottom: 1px;
+   text-align: right;
+   flex: 1;
+   margin-right: 5px;
+   margin-bottom: 1px;
 }
 
 #pokemon-dex {
-    margin-top: 10px;
+   margin-top: 10px;
 }
+
+#pokemon-star {
+   max-height: 26px;
+   max-width: 26px;
+   margin-left: 1px;
+   filter: invert(27%) sepia(70%) saturate(7419%) hue-rotate(344deg) brightness(95%) contrast(96%); //#d87389
+}
+
+

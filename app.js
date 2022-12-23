@@ -6,9 +6,16 @@ var pokeDex = "";
 var pokeNum = 0;
 var shiny = false;
 
+
+// ----------------------
+// pokemon shit
+// ----------------------
+
+
 fetch("https://pokeapi.co/api/v2/pokemon-species/")
     .then((res) => res.json())
     .then((json) => random_pokemon(json))
+    
     
 function random_pokemon(json) {
     
@@ -56,7 +63,7 @@ function get_pokedex(json) {
             break;
         }
     }
-    
+    //TODO maybe skip legends arceus pokedex entrys maybe ??? maybe ????
     set_pokemon();
 }
 
@@ -65,6 +72,7 @@ function set_pokemon() {
     const pokeEleName = document.getElementById("pokemon-name");
     const pokeEleDex = document.getElementById("pokemon-dex");
     const pokeEleNum = document.getElementById("pokemon-num");
+    const pokeEleStar = document.getElementById("pokemon-star");
     
     console.log(pokeNum);
     console.log(pokeName);
@@ -72,8 +80,22 @@ function set_pokemon() {
     console.log(pokeDex);
     
     pokeEleImg.src = pokeSprite;
+    pokeEleImg.style.background = "";
     pokeEleName.innerHTML = pokeName;
     pokeEleDex.innerHTML = pokeDex;
     pokeEleNum.innerHTML = pokeNum;
-    
+    shiny ? pokeEleStar.style.display = "block" : pokeEleStar.style.display = "none";
+}
+
+
+// ----------------------
+// other shit
+// ----------------------
+
+window.onload = function() {
+    const welcome = document.getElementById("welcome");
+    var date =  new Date();
+    var hours = date.getHours();
+    var timeOfDay = hours <= 6 ? "night" : hours < 12 ? "morning" : hours <= 16 ? "afternoon" : hours <= 22 ? "evening" : "night";  
+    welcome.innerHTML = "good " + timeOfDay;
 }

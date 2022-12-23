@@ -11,7 +11,7 @@
 	<script src="app.js"></script>
     <div>
         <!-- header -->
-        <h1>yoyoyoyoyooy</h1>
+        <h1 id="welcome"></h1>
     </div>
     <div>
         
@@ -23,9 +23,14 @@
             <!-- right side -->
             <div id="pokemon">
                 <div id="sprite-border">
-                    <div id="pokemon-name"></div>
-                    <img id="pokemon-sprite" alt="missing pokemon">
-                    <div id="pokemon-num"></div>
+                    <div class="pokemon-label">
+                        <div id="pokemon-name"></div>
+                    </div>
+                    <img id="pokemon-sprite" alt=" "> 
+                    <div class="pokemon-label">
+                        <img id="pokemon-star" src="assets/shiny-stars.png" style="display: none;">
+                        <div id="pokemon-num"></div>
+                    </div>
                 </div>
                 <div id="pokemon-dex"></div>
             </div>

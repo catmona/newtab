@@ -11,6 +11,7 @@ div {
   border-radius: 5px;
   border: solid 2px whitesmoke;
   width: 195px;
+  height: 255px;
 }
 
 #pokemon-sprite {
@@ -18,8 +19,8 @@ div {
   min-width: 200px;
 }
 
-#sprite-layer2 {
-  margin-left: -42%;
+.pokemon-label {
+  display: flex;
 }
 
 #pokemon-name {
@@ -30,10 +31,18 @@ div {
 
 #pokemon-num {
   text-align: right;
+  flex: 1;
   margin-right: 5px;
   margin-bottom: 1px;
 }
 
 #pokemon-dex {
   margin-top: 10px;
+}
+
+#pokemon-star {
+  max-height: 26px;
+  max-width: 26px;
+  margin-left: 1px;
+  filter: invert(27%) sepia(70%) saturate(7419%) hue-rotate(344deg) brightness(95%) contrast(96%);
 }/*# sourceMappingURL=style.css.map */
