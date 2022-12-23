@@ -6,6 +6,21 @@ div {
   color: #e7defc;
 }
 
+#bottom {
+  display: flex;
+}
+#bottom :first-child {
+  width: 65%;
+}
+
+.side {
+  width: 35%;
+}
+
+#pokemon {
+  margin-top: 20vh;
+}
+
 #sprite-border {
   background-color: #35333d;
   border-radius: 5px;
@@ -38,6 +53,8 @@ div {
 
 #pokemon-dex {
   margin-top: 10px;
+  font-style: italic;
+  max-width: 250px;
 }
 
 #pokemon-star {

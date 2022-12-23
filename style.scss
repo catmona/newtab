@@ -23,11 +23,26 @@ div {
    color: $text;
 }
 
+#bottom {
+    display: flex;
+    :first-child { //left
+        width: 65%;
+    }
+}
+
+.side {
+    width: 35%;
+}
+
 // ----------------------
 // pokemon
 // ----------------------
 
 #pokemon {
+    margin-top: 20vh;
+    // display: flex;
+    // align-items: flex-start;
+    // flex-direction: column;
 }
 
 #sprite-border {
@@ -62,6 +77,8 @@ div {
 
 #pokemon-dex {
    margin-top: 10px;
+   font-style: italic;
+   max-width: 250px; 
 }
 
 #pokemon-star {
