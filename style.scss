@@ -25,12 +25,13 @@ div {
 
 #bottom {
     display: flex;
-    :first-child { //left
-        width: 65%;
-    }
 }
 
-.side {
+#left {
+    width: 65%;
+}
+
+#right {
     width: 35%;
 }
 
@@ -60,12 +61,20 @@ div {
 
 .pokemon-label {
    display: flex;
+   margin-top: -2px;
 }
 
 #pokemon-name {
    text-align: left;
    margin-left: 5px;
-   margin-top: 1px;
+   margin-top: 2px;
+   flex: 1;
+}
+
+#pokemon-caught {
+    height: 30px;
+    width: 30px;
+    margin-top: 1px;
 }
 
 #pokemon-num {
@@ -76,7 +85,7 @@ div {
 }
 
 #pokemon-dex {
-   margin-top: 10px;
+   margin-top: 20px;
    font-style: italic;
    max-width: 250px; 
 }

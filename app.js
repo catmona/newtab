@@ -5,6 +5,7 @@ var pokeName = "";
 var pokeDex = "";
 var pokeNum = 0;
 var shiny = false;
+var caught = false;
 
 
 // ----------------------
@@ -73,6 +74,7 @@ function set_pokemon() {
     const pokeEleDex = document.getElementById("pokemon-dex");
     const pokeEleNum = document.getElementById("pokemon-num");
     const pokeEleStar = document.getElementById("pokemon-star");
+    const pokeEleCaught = document.getElementById("pokemon-caught");
     
     console.log(pokeNum);
     console.log(pokeName);
@@ -85,6 +87,17 @@ function set_pokemon() {
     pokeEleDex.innerHTML = pokeDex;
     pokeEleNum.innerHTML = pokeNum;
     shiny ? pokeEleStar.style.display = "block" : pokeEleStar.style.display = "none";
+    
+    if(window.localStorage.getItem(pokeNum.toString()) == null) {
+        //pokemon hasn't been seen before, catch it!
+        window.localStorage.setItem(pokeNum.toString(), "true");
+    }
+    else {
+        //pokemon has been seen before, show "caught" icon
+        pokeEleCaught.style.display = "block";
+    }
+    
+    console.log(window.localStorage);
 }
 
 
