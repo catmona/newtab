@@ -303,26 +303,27 @@ function searchAutocomplete(e) {
 }
 
 function navigateAutocomplete(e) {
-    if (results.length <= 0 && inQuickSearch == false) return;
     const auto = document.getElementById("autocomplete");
     const search = document.getElementById("searchbar");
+    
+    if (search.value == "") return;
     // console.log(e.key);
     
-    if(e.key == "ArrowUp" && inQuickSearch == false) {
+    if(e.key == "ArrowUp" && inQuickSearch == false && results.length > 0) {
         e.preventDefault();
         resultIndex -= 1;
         if(resultIndex < 0) resultIndex = 9;
         auto.value = results[resultIndex].key.toLowerCase();
         return false;
     }
-    else if(e.key == "ArrowDown" && inQuickSearch == false) {
+    else if(e.key == "ArrowDown" && inQuickSearch == false && results.length > 0) {
         e.preventDefault();
         resultIndex += 1;
         if(resultIndex > 9) resultIndex = 0;
         auto.value = results[resultIndex].key.toLowerCase();
         return false;
     }
-    else if(e.key == "Tab" && inQuickSearch == false) {
+    else if(e.key == "Tab" && inQuickSearch == false && results.length > 0) {
         e.preventDefault();
         console.log("tabbed")
         search.value = auto.value;
