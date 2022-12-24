@@ -267,7 +267,6 @@ var results = []
 var resultIndex = 0;
 var inQuickSearch = false;
 
-//key: AIzaSyDFxy8Hkll6WhsUGwKjS4hUc63lItQpvnE 
 function searchAutocomplete(e) {
     const auto = document.getElementById("autocomplete");
     
@@ -284,8 +283,11 @@ function searchAutocomplete(e) {
         return;
     }
     
+    //check for spaces
+    var query = e.target.value.replace(" ", "+");
+    
     //get autosuggestions
-    fetch("https://sugg.search.yahoo.net/sg/?output=json&nresults=10&command=" + e.target.value, {mode: 'cors'})
+    fetch("https://sugg.search.yahoo.net/sg/?output=json&nresults=10&command=" + query, {mode: 'cors'})
         .then((res) => res.json())
         .then((json) => {
             results = json.gossip.results;
@@ -333,7 +335,11 @@ function navigateAutocomplete(e) {
         if(inQuickSearch) checkQuickSearch(search.value, true);
         
         //if we aren't, just search like normal
-        else window.open(searchEngine + search.value, "_self");
+        else {
+            //check for spaces
+            var query = search.value.replace(" ", "+");
+            window.open(searchEngine + query, "_self");
+        }
         return false;
     }
 }
