@@ -1,4 +1,5 @@
 const shinyChance = 0.05;
+const searchEngine = "https://www.google.com/search?client=firefox-b-1-d&q=";
 
 var pokeSprite = "";
 var pokeName = "";
@@ -258,21 +259,94 @@ function openBookmark(url) {
 
 function initSearch() {
     const search = document.getElementById("searchbar");
-    search.addEventListener("input", searchAutocomplete)
+    search.addEventListener("input", searchAutocomplete);
+    search.addEventListener("keydown", navigateAutocomplete, false);
 }
+
+var results = []
+var resultIndex = 0;
+var inQuickSearch = false;
 
 //key: AIzaSyDFxy8Hkll6WhsUGwKjS4hUc63lItQpvnE 
 function searchAutocomplete(e) {
     const auto = document.getElementById("autocomplete");
     
+    //check for empty search
+    if(e.target.value == "") auto.value = "";
+    
+    //dont autosuggest if in quicksearch
+    checkQuickSearch(e.target.value, false)
+    if(inQuickSearch == true) {
+        //console.log("quick link found - no suggestions")
+        auto.value = "";
+        results = [];
+        resultIndex = 0;
+        return;
+    }
+    
+    //get autosuggestions
     fetch("https://sugg.search.yahoo.net/sg/?output=json&nresults=10&command=" + e.target.value, {mode: 'cors'})
         .then((res) => res.json())
         .then((json) => {
-            auto.value = json.gossip.results[0].key.toLowerCase();
+            results = json.gossip.results;
+            auto.value = results[0].key.toLowerCase();
+            resultIndex = 0;
             // console.log(json);
         })
         .catch((error) => {
             auto.value = "";
+            results = [];
+            resultIndex = 0;
         })
-    
 }
+
+function navigateAutocomplete(e) {
+    if (results.length <= 0 && inQuickSearch == false) return;
+    const auto = document.getElementById("autocomplete");
+    const search = document.getElementById("searchbar");
+    // console.log(e.key);
+    
+    if(e.key == "ArrowUp" && inQuickSearch == false) {
+        e.preventDefault();
+        resultIndex -= 1;
+        if(resultIndex < 0) resultIndex = 9;
+        auto.value = results[resultIndex].key.toLowerCase();
+        return false;
+    }
+    else if(e.key == "ArrowDown" && inQuickSearch == false) {
+        e.preventDefault();
+        resultIndex += 1;
+        if(resultIndex > 9) resultIndex = 0;
+        auto.value = results[resultIndex].key.toLowerCase();
+        return false;
+    }
+    else if(e.key == "Tab" && inQuickSearch == false) {
+        e.preventDefault();
+        console.log("tabbed")
+        search.value = auto.value;
+        return false;
+    }
+    else if(e.key == "Enter") {
+        e.preventDefault();
+        
+        //check if we're in a quick search
+        if(inQuickSearch) checkQuickSearch(search.value, true);
+        
+        //if we aren't, just search like normal
+        else window.open(searchEngine + search.value, "_self");
+        return false;
+    }
+}
+
+function checkQuickSearch(query, open) {
+    const prefixSubreddit = "https://www.reddit.com/";
+    
+    if(query.startsWith("r/")) { //subreddit
+        if(open) window.open(prefixSubreddit + query, "_self");
+        inQuickSearch = true;
+    }
+    else {
+        inQuickSearch = false;
+    }
+}
+
