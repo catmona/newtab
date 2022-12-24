@@ -2,6 +2,7 @@
 // variables
 // ----------------------
 
+
 $bg: #242229;
 $bg2: #222027;
 $surface: #35333d;
@@ -11,9 +12,11 @@ $subtext: #bab3c5;
 
 $accent: #b4befe;
 
+
 // ----------------------
 // base
 // ----------------------
+
 
 body {
    background-color: $bg;
@@ -29,21 +32,35 @@ div {
 
 #left {
     width: 65%;
+    flex-direction: column;
+    margin-left: 10%;
 }
 
 #right {
     width: 35%;
 }
 
+textarea:focus, input:focus{
+   outline: none;
+}
+
+
 // ----------------------
 // pokemon
 // ----------------------
 
+
 #pokemon {
-    margin-top: 20vh;
-    // display: flex;
-    // align-items: flex-start;
-    // flex-direction: column;
+    margin-top: 12vh;
+    
+    /* Firefox */
+   -moz-transition: all 0.15s ease-in;
+   /* WebKit */
+   -webkit-transition: all 0.15s ease-in;
+   /* Opera */
+   -o-transition: all 0.15s ease-in;
+   /* Standard */
+   transition: all 0.15s ease-in;
 }
 
 #sprite-border {
@@ -113,22 +130,39 @@ div {
 #bookmarks {
    display: flex;
    flex-wrap: wrap;
-   margin-left: 20%;
-   margin-top: 100px;
+   margin-top: 70px;
+   
+   /* Firefox */
+   -moz-transition: all 0.15s ease-in;
+   /* WebKit */
+   -webkit-transition: all 0.15s ease-in;
+   /* Opera */
+   -o-transition: all 0.15s ease-in;
+   /* Standard */
+   transition: all 0.15s ease-in;
 }
 
 .shortcut {
    display: none;
-   padding: 50px;
+   padding: 5px;
    margin: 15px;
    background-color: $surface;
    color: $text;
    border-radius: 5px;
-   height: 75px;
-   width: 75px;
+   height: 170px;
+   width: 170px;
    text-align: center;
    box-shadow: 5px 5px 10px black;
    cursor: pointer;
+   flex-direction: column;
+   justify-content: space-between;
+   
+   img {
+      margin-left: 36%;
+      margin-top: 35%;
+      height: 50px;
+      width: 50px;
+   }
 }
 
 .shortcut:hover {
@@ -141,6 +175,40 @@ div {
    -o-transition: all 0.08s ease-in;
    /* Standard */
    transition: all 0.08s ease-in;
+   
+   .shortcut-footer {
+      display: flex;
+   }
+}
+
+.shortcut-footer {
+   display: none;
+   flex-direction: row;  
+   text-shadow: 2px 2px 2px black;
+}
+
+.shortcut-label {
+   color: $subtext;
+   flex: 1;
+   width: 90%;
+   height: fit-content;
+   overflow: hidden;
+   text-align: left;
+   margin-left: 12px;
+}
+
+.shortcut-delete {
+   color: red;
+   text-align: right;
+   width: fit-content;
+   margin-left: auto;
+   padding: 2px;
+   border-radius: 20px;
+   cursor: pointer;
+}
+
+.shortcut-delete:hover {
+   color: $text;
 }
 
 #add-shortcut {
@@ -153,37 +221,141 @@ div {
 // ----------------------
 
 
-#popup {
+#popup-container {
+   display: none;
+   justify-content: center;
+   align-items: center;
+   text-align: center;
+   min-height: 100%;
+   min-width: 100%;
+   background-color: rgba(0, 0, 0, 0.4);
+   z-index: 1;
    position: absolute;
+}
+
+#popup {
    background-color: $surface;
    padding: 20px;
    border-radius: 5px;
-   margin-left: 45vw;
-   margin-top: 45vh;
-   display: none;
    box-shadow: 5px 5px 10px black;
+   width: 400px;
+   height: 475px;
 }
 
 #popup-form {
+   text-shadow: 2px 2px 2px black;
+   
+   .form-row {
+      display: flex;
+      flex-direction: column;
+      margin-top: 15px;
+   }
+   
    label {
-      text-shadow: 3px 3px 2px black;
+      font-size: 17px;
+      text-align: left;
+      color: $subtext;
+      margin-bottom: 8px;
+      margin-left: 4px;
    }
    
    input {
-      
+      // margin-left: auto;
+      width: 40%;
+      background-color: $surface;
+      border-radius: 5px;
+      border: solid 1px black;
+      width: 80%;
+      height: 18px;
+      padding: 10px;
+      padding-bottom: 15px;
+      color: $text;
+      font-size: 17px;
    }
 }
 
+#popup-header {
+   text-align: left;
+   font-weight: bold;
+   // margin-bottom: 12px;
+   // margin-top: -8px;
+   text-shadow: 2px 2px 2px black;
+   font-size: large;
+}
+
+#popup-footer {
+   display: flex;
+   margin-top: 55%;
+}
+
+.footer-button {
+   height: 45px !important;
+   width: 90px !important;
+   border-radius: 5px;
+   border: none !important;
+   font-size: 16px !important;
+}
+
 #submit-button {
-   
+   margin-left: 10px;
+   background-color: green !important;
+   cursor: pointer;
+   text-shadow: 2px 2px 2px black;
+}
+
+#cancel-button {
+   background-color: red;
+   text-align: center;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-left: auto;
+   cursor: pointer;
 }
 
 
 // ----------------------
-// popup
+// header
 // ----------------------
 
 
+#header {
+   text-align: center;
+   margin-top: 10px;
+   display: flex;
+   flex-direction: column;
+}
+
 #welcome {
    text-shadow: 3px 3px 2px black;
+}
+
+
+// ----------------------
+// search
+// ----------------------
+
+
+#search {
+   width: 50%;
+   height: 60px;
+   border-bottom: 2px solid $text;
+   margin-left: 25%;
+   position: relative;
+   
+   input {
+      background-color: rgba(0, 0, 0, 0);
+      border: none;
+      color: $subtext;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 30px;
+      font-size: 20px;
+   }
+   
+   #autocomplete {
+      color: grey;
+   }
 }

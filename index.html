@@ -9,21 +9,33 @@
   </head>
   <body>
 	<script src="app.js"></script>
-    <div id="popup">
-        popup
-        <form id="popup-form" onsubmit="return addBookmark(event.target)">
-            <label for="bname">bookmark name: </label>
-            <input type="text" id="bname" name="bname">
-            <br>
-            <label for="burl">bookmark url: </label>
-            <input type="text" id="burl" name="burl">
-            <br>
-            <input id="submit-button" type="submit" value="submit">
-        </form>
+    <div id="popup-container" onclick="togglePopup()">
+        <div id="popup" onclick="event.stopPropagation()">
+            <div id="popup-header">add new bookmark</div>
+            <form id="popup-form" onsubmit="return addBookmark(event.target)">
+                <div class="form-row">
+                    <label for="bname">bookmark name: </label>
+                    <input type="text" id="bname" name="bname">
+                </div>
+                <div class="form-row">
+                    <label for="burl">bookmark url: </label>
+                    <input type="text" id="burl" name="burl">
+                </div>
+                <div id="popup-footer">
+                    <div class="footer-button" id="cancel-button" onclick="event.stopPropagation(); togglePopup()">cancel</div>
+                    <input class="footer-button" id="submit-button" type="submit" value="add">
+                </div>
+            </form>
+        </div>
     </div>
-    <div>
+    
+    <div id="header">
         <!-- header -->
         <h1 id="welcome">good night</h1>
+        <div id="search">
+            <input id="autocomplete" disabled>
+            <input id="searchbar" type="text" placeholder="search" autofocus">
+        </div>
     </div>
     <div id="bottom">
         <div id="left">

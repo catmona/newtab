@@ -98,7 +98,8 @@ function set_pokemon() {
         pokeEleCaught.style.display = "block";
     }
     
-    pokeElePercent.innerHTML = Math.round(((window.localStorage.length / max) * 100) * 10) / 10 + "%";
+    // -1 because of bookmarks entry
+    pokeElePercent.innerHTML = Math.round((((window.localStorage.length - 1) / max) * 100) * 10) / 10 + "%";
     
 }
 
@@ -110,6 +111,7 @@ function set_pokemon() {
 window.onload = function() {
     setWelcomeMessage();
     createBookmarks();
+    initSearch();
 }
 
 function setWelcomeMessage() {
@@ -147,14 +149,9 @@ function createBookmarks() {
         if(usedButtons >= 6) return;
     }
     
-    //hide shortcut button if there's already max # of bookmarks
-    // if(usedButtons >= 6) {
-    //     return;
-    // }
-    
     //if there's less than 6 buttons, show a "add new bookmark" button
     const addButton = document.createElement("div")
-    addButton.onclick = function() { showPopup() }
+    addButton.onclick = function() { togglePopup() }
     addButton.id = "add-shortcut";
     addButton.className = "shortcut";
     addButton.innerHTML = "+";
@@ -168,15 +165,34 @@ function generateButton(url, name) {
     
     //outer button stuff
     button.onclick = function() { openBookmark(url); }
-    button.innerHTML = name;
-    
     button.className = "shortcut";
-    button.style.display = "inline";
+    button.style.display = "flex";
     
-    const delButton = document.createElement("button");
+    //icon
+    const icon = document.createElement("img");
+    icon.src = "https://icons.duckduckgo.com/ip3/" + url + ".ico";
+    
+    //footer
+    const footer = document.createElement("div");
+    footer.className = "shortcut-footer";
+    
+    //label
+    const label = document.createElement("div");
+    label.className = "shortcut-label";
+    label.innerHTML = name;
+    
+    //delete button
+    const delButton = document.createElement("div");
+    delButton.className = "shortcut-delete";
     delButton.innerHTML = "X";
     delButton.onclick = function(e) { e.stopPropagation(); removeBookmark(button) }
-    button.appendChild(delButton);
+    
+    //add stuff to button
+    button.appendChild(icon);
+    button.appendChild(footer);
+    
+    footer.appendChild(label);
+    footer.appendChild(delButton);
 }
 
 function removeBookmark(bookmark) {
@@ -198,7 +214,7 @@ function removeBookmark(bookmark) {
 function addBookmark(event) {
     //if nothing was submitted, hide the popup
     if(event.bname.value == "" || event.burl.value == "") {
-        document.getElementById("popup").style.display = "none";
+        togglePopup();
         return false;
     }
     
@@ -213,17 +229,50 @@ function addBookmark(event) {
     window.localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
     
     //hide popup and update bookmark buttons
-    document.getElementById("popup").style.display = "none";
+    togglePopup();
     createBookmarks();
     return false;
 }
 
-function showPopup() {
-    document.getElementById("popup").style.display = "block";
+function togglePopup() {
+    const popup = document.getElementById("popup-container");
+    
+    if(popup.style.display == "flex") {
+        popup.style.display = "none";
+        return;
+    }
+    
+    popup.style.display = "flex"
 }
 
 function openBookmark(url) {
     if(!url.includes("www.")) url = "www." + url;
     if(!url.includes("https://")) url = "https://" + url;
     window.open(url, "_self");
+}
+
+
+// ----------------------
+// search
+// ----------------------
+
+function initSearch() {
+    const search = document.getElementById("searchbar");
+    search.addEventListener("input", searchAutocomplete)
+}
+
+//key: AIzaSyDFxy8Hkll6WhsUGwKjS4hUc63lItQpvnE 
+function searchAutocomplete(e) {
+    const auto = document.getElementById("autocomplete");
+    
+    fetch("http://sugg.search.yahoo.net/sg/?output=json&nresults=10&command=" + e.target.value, {mode: 'cors'})
+        .then((res) => res.json())
+        .then((json) => {
+            auto.value = json.gossip.results[0].key.toLowerCase();
+            // console.log(json);
+        })
+        .catch((error) => {
+            auto.value = "";
+        })
+    
 }
