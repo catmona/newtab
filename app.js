@@ -265,7 +265,7 @@ function initSearch() {
 function searchAutocomplete(e) {
     const auto = document.getElementById("autocomplete");
     
-    fetch("http://sugg.search.yahoo.net/sg/?output=json&nresults=10&command=" + e.target.value, {mode: 'cors'})
+    fetch("https://sugg.search.yahoo.net/sg/?output=json&nresults=10&command=" + e.target.value, {mode: 'cors'})
         .then((res) => res.json())
         .then((json) => {
             auto.value = json.gossip.results[0].key.toLowerCase();
