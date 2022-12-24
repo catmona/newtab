@@ -16,11 +16,11 @@
             <form id="popup-form" onsubmit="return addBookmark(event.target)">
                 <div class="form-row">
                     <label for="bname">bookmark name: </label>
-                    <input type="text" id="bname" name="bname">
+                    <input type="text" id="bname" name="bname" autocomplete="off">
                 </div>
                 <div class="form-row">
                     <label for="burl">bookmark url: </label>
-                    <input type="text" id="burl" name="burl">
+                    <input type="text" id="burl" name="burl" autocomplete="off">
                 </div>
                 <div id="popup-footer">
                     <div class="footer-button" id="cancel-button" onclick="event.stopPropagation(); togglePopup()">cancel</div>
@@ -34,8 +34,8 @@
         <!-- header -->
         <h1 id="welcome">good night</h1>
         <div id="search">
-            <input id="autocomplete" disabled>
-            <input id="searchbar" type="text" placeholder="search" autofocus>
+            <input id="autocomplete" disabled autocomplete="off">
+            <input id="searchbar" type="text" placeholder="search" autofocus autocomplete="off">
         </div>
     </div>
     <div id="bottom">
