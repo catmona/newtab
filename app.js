@@ -257,10 +257,28 @@ function openBookmark(url) {
 // search
 // ----------------------
 
+
 function initSearch() {
+    initProxy();
     const search = document.getElementById("searchbar");
     search.addEventListener("input", searchAutocomplete);
     search.addEventListener("keydown", navigateAutocomplete, false);
+}
+
+function initProxy() {
+//     // Listen on a specific host via the HOST environment variable
+//     var host = process.env.HOST || '0.0.0.0';
+//     // Listen on a specific port via the PORT environment variable
+//     var port = process.env.PORT || 8080;
+
+//     var cors_proxy = require('cors-anywhere');
+//     cors_proxy.createServer({
+//         originWhitelist: [], // Allow all origins
+//         requireHeader: ['origin', 'x-requested-with'],
+//         removeHeaders: ['cookie', 'cookie2']
+//     }).listen(port, host, function() {
+//         console.log('Running CORS Anywhere on ' + host + ':' + port);
+//     });
 }
 
 var results = []
@@ -286,8 +304,13 @@ function searchAutocomplete(e) {
     //check for spaces
     var query = e.target.value.replace(" ", "+");
     
+    //const proxyURL = "http://localhost:8080/";
+    const proxyURL = "";
+    
+    const suggestURL = "https://sugg.search.yahoo.net/sg/?output=json&nresults=10&command=";
+    
     //get autosuggestions
-    fetch("https://sugg.search.yahoo.net/sg/?output=json&nresults=10&command=" + query, {mode: 'cors'})
+    fetch(proxyURL + suggestURL + query, { mode: 'cors' })
         .then((res) => res.json())
         .then((json) => {
             results = json.gossip.results;
